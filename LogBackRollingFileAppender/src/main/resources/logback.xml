@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="1000000 seconds">
+
+    <appender name="consoleOutput"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{dd-MMM-yy hh:mm:ss} %c:%M:%L %m%n- %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="fileOutput" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>LOGFILE.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2MB</MaxFileSize>
+        </triggeringPolicy>
+
+        <encoder>
+            <pattern>%-4relative %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+
+    </appender>
+
+
+    <appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>INFO.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+        <!-- keep 30 days' worth of history -->
+        <maxHistory>30</maxHistory>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="debugFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>DEBUG.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+        <!-- keep 30 days' worth of history -->
+        <maxHistory>30</maxHistory>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>ERROR.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+        <maxHistory>30</maxHistory>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="warnFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>WARN.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+        <!-- keep 30 days' worth of history -->
+        <maxHistory>30</maxHistory>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="traceFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="com.adarsh.logback.api.LevelFilterImpl">
+            <level>TRACE</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="com.adarsh.logback.api.TimeBasedRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <fileNamePattern>TRACE.%d{yyyy-MM}.log</fileNamePattern>
+        </rollingPolicy>
+        <!-- keep 30 days' worth of history -->
+        <maxHistory>30</maxHistory>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="debugFile"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="traceFile"/>
+    </root>
+
+    <root level="warn">
+        <appender-ref ref="warnFile"/>
+    </root>
+
+    <root level="error">
+        <appender-ref ref="errorFile"/>
+    </root>
+
+    <root level="debug">
+        <appender-ref ref="debugFile"/>
+    </root>
+
+    <root level="info">
+        <appender-ref ref="infoFile"/>
+    </root>
+
+    <root level="ERROR" additivity="TRUE">
+        <appender-ref ref="fileOutput"/>
+    </root>
+
+    <root level="debug">
+        <appender-ref ref="consoleOutput"/>
+    </root>
+
+</configuration>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan true,false-->
+<!--scanPeriod milliseconds, seconds, minutes or hours-->
+<configuration scan="true" scanPeriod="1000000 seconds">
+
+    <include file="src/main/resources/includedConfig.xml"/>
+
+    <property file="src/main/resources/application.properties"/>
+
+
+    <appender name="dbAppender1" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${log.db.driver}</driverClass>
+            <url>jdbc:mysql://${log.db.host}:${log.db.port}/${log.db.schema}</url>
+            <user>${log.db.username}</user>
+            <password>${log.db.password}</password>
+            <insertHeaders>true</insertHeaders>
+        </connectionSource>
+    </appender>
+
+
+    <appender name="dbAppender" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                <driverClass>${log.db.driver}</driverClass>
+                <jdbcUrl>jdbc:mysql://${log.db.host}:${log.db.port}/${log.db.schema}</jdbcUrl>
+                <user>${log.db.username}</user>
+                <password>${log.db.password}</password>
+            </dataSource>
+        </connectionSource>
+        <insertHeaders>true</insertHeaders>
+    </appender>
+
+    <!--level TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF.-->
+    <logger name="com.adarsh.services" level="ALL"/>
+
+    <logger name="com.adarsh.manager" level="INFO"/>
+
+    <logger name="com.mchange.v2.c3p0.*" level="DEBUG"/>
+
+    <root level="trace">
+        <appender-ref ref="includedConsole"/>
+    </root>
+
+
+    <root level="trace">
+        <appender-ref ref="dbAppender"/>
+    </root>
+
+
+</configuration>

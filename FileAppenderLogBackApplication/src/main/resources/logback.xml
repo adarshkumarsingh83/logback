@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan true,false-->
+<!--scanPeriod milliseconds, seconds, minutes or hours-->
+<configuration scan="true" scanPeriod="1000000 seconds">
+
+    <include file="src/main/resources/includedConfig.xml"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+
+    <property file="src/main/resources/application.properties"/>
+
+    <appender name="filAppender1" class="ch.qos.logback.core.FileAppender">
+        <file>${destination}</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <property name="APPLICATION_HOME" value="c:/home/adarsh"/>
+
+    <appender name="filAppender2" class="ch.qos.logback.core.FileAppender">
+        <file>${APPLICATION_HOME}/applicationLog2.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--level TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF.-->
+    <logger name="com.adarsh.services" level="ALL"/>
+
+    <logger name="com.adarsh.manager" level="INFO"/>
+
+
+    <root level="trace">
+        <appender-ref ref="includedConsole" />
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="consoleAppender"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="filAppender1"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="filAppender2"/>
+    </root>
+
+</configuration>

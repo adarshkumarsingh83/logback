@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  scan="true" scanPeriod="1000000 seconds">
+
+    <appender name="consoleOutput" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <appender name="fileOutput"
+              class="com.adarsh.logback.api.RollingFileAppenderImpl">
+        <customFilSystem>true</customFilSystem>
+        <file>applicationLogFile.log</file>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </layout>
+
+        <rollingPolicy class="com.adarsh.logback.api.FixedWindowRollingPolicyImpl">
+            <customFilSystem>true</customFilSystem>
+            <FileNamePattern>applicationLogFileZip.%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>50</MaxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2MB</MaxFileSize>
+        </triggeringPolicy>
+
+    </appender>
+
+    <logger name="com.adarsh.services" level="ALL"/>
+    <logger name="com.adarsh.managers" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="fileOutput"/>
+        <appender-ref ref="consoleOutput"/>
+    </root>
+
+</configuration>

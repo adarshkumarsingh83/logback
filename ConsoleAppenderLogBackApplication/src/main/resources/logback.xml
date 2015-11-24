@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan true,false-->
+<!--scanPeriod milliseconds, seconds, minutes or hours-->
+<configuration scan="true" scanPeriod="1000000 seconds">
+
+    <appender name="consoleOutput" class="ch.qos.logback.core.ConsoleAppender">
+
+        <layout class="ch.qos.logback.classic.PatternLayout">
+
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+
+        </layout>
+
+    </appender>
+
+    <!--level TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF.-->
+    <logger name="com.adarsh.services" level="ALL"/>
+
+    <root level="trace">
+        <appender-ref ref="consoleOutput"/>
+    </root>
+
+</configuration>

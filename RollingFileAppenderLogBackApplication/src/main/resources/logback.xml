@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scan true,false-->
+<!--scanPeriod milliseconds, seconds, minutes or hours-->
+<configuration scan="true" scanPeriod="1000000 seconds">
+
+    <include file="src/main/resources/includedConfig.xml"/>
+
+    <property file="src/main/resources/application.properties"/>
+
+    <appender name="rollingFileAppender1" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${destination}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${USER_HOME}/applicationLog1.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <property name="APPLICATION_HOME" value="c:/home/adarsh"/>
+
+    <appender name="rollingFileAppender2" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${APPLICATION_HOME}/applicationLog2.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${APPLICATION_HOME}/applicationLog2.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="rollingFileAppender3" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>c:/home/adarsh/applicationLog3.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>>c:/home/adarsh/applicationLog3.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="rollingFileAppender4" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>c:/home/adarsh/applicationTest.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>c:/home/adarsh/applicationTest.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>30</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <property name="USER_HOME" value="c:/home/adarsh"/>
+
+    <appender name="rollingFileAppender5" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>${USER_HOME}/mylogFile.txt</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>mylogFile-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!--level TRACE, DEBUG, INFO, WARN, ERROR, ALL or OFF.-->
+    <logger name="com.adarsh.services" level="ALL"/>
+
+    <logger name="com.adarsh.manager" level="INFO"/>
+
+
+    <root level="trace">
+        <appender-ref ref="includedConsole"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="rollingFileAppender1"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="rollingFileAppender2"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="rollingFileAppender3"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="rollingFileAppender4"/>
+    </root>
+
+    <root level="trace">
+        <appender-ref ref="rollingFileAppender5"/>
+    </root>
+
+</configuration>
